@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,21 +13,18 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(of = "id")
 @Entity
-@Table(name = "answers")
-public class AnswerEntity {
+@Table(name = "fill_polls")
+public class FillPollEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "answer_text", nullable = false)
-    private String answer;
+    @Column(name = "date", nullable = false)
+    private Instant date;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "question_id", nullable = false)
-    private QuestionEntity question;
-
-    @OneToMany(mappedBy = "answerEntity")
+    @OneToMany(mappedBy = "fillPollEntity")
     private List<AnswersToPollAnswersEntity> answersToPollAnswersEntities = new ArrayList<>();
 
 }
