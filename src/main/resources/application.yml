@@ -1,0 +1,31 @@
+server:
+  port: ${APP_PORT:8080}
+  tomcat:
+    uri-encoding: UTF-8
+logging:
+  level:
+    root: INFO
+spring:
+  application:
+    name: iLog-backend
+  datasource:
+    url: jdbc:postgresql://${ILOG_DATABASE_HOST:localhost}:${ILOG_DATABASE_PORT:5432}/${ILOG_DATABASE:iLog}
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL92Dialect
+  security:
+    oauth2:
+      client:
+        registration:
+          okta:
+            client-id: 0oarf0hleem4k9qA75d6
+            client-secret: YvXQnu6KRgk2jmDn1EeaxnU7ZmrJUTXiwNp4LK-v
+            scope: openid, email, profile
+        provider:
+          okta:
+            issuer-uri: https://dev-46446375.okta.com/oauth2/default
