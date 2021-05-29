@@ -23,9 +23,17 @@ spring:
       client:
         registration:
           okta:
-            client-id: 0oarf0hleem4k9qA75d6
-            client-secret: YvXQnu6KRgk2jmDn1EeaxnU7ZmrJUTXiwNp4LK-v
+            client-id: ${OKTA_ID}
+            client-secret: ${OKTA_SECRET}
             scope: openid, email, profile
+          google:
+            client-id: ${GOOGLE_ID}
+            client-secret: ${GOOGLE_SECRET}
+            scope: openid, email, profile
+          facebook:
+            client-id: ${FACEBOOK_ID}
+            client-secret: ${FACEBOOK_SECRET}
+            scope: public_profile, email
         provider:
           okta:
             issuer-uri: https://dev-46446375.okta.com/oauth2/default
