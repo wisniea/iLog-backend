@@ -25,5 +25,5 @@ public class QuestionEntity {
     private QuestionTypeEnum type;
 
     @ManyToOne
-    private AnswerEntity[] answer;
+    private AnswerEntity answer;
 }
