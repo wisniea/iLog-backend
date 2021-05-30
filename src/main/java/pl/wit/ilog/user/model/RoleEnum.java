@@ -1,4 +1,4 @@
-package pl.wit.ilog.wit.user.model;
+package pl.wit.ilog.user.model;
 
 public enum RoleEnum {
     ROLE_ADMIN("ADMIN"), ROLE_USER("USER");

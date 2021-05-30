@@ -1,6 +1,7 @@
-package pl.wit.ilog.wit.form.answer;
+package pl.wit.ilog.form.answer;
 
 import lombok.*;
+import pl.wit.ilog.form.question.QuestionEntity;
 
 import javax.persistence.*;
 
@@ -23,4 +24,8 @@ public class AnswerEntity {
 
     @Column(name = "value", nullable = false)
     private Boolean value;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "question_id", nullable = false)
+    private QuestionEntity question;
 }

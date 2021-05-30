@@ -1,10 +1,9 @@
-package pl.wit.ilog.wit.user.model;
+package pl.wit.ilog.user.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
-import org.springframework.data.repository.Repository;
 
 import javax.persistence.QueryHint;
 import java.util.Optional;

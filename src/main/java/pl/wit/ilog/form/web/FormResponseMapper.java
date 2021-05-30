@@ -1,14 +1,14 @@
-package pl.wit.ilog.wit.form.web;
+package pl.wit.ilog.form.web;
 
 import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
-import pl.wit.ilog.wit.common.IMapper;
-import pl.wit.ilog.wit.form.answer.AnswerEntity;
-import pl.wit.ilog.wit.form.model.FormEntity;
-import pl.wit.ilog.wit.form.question.QuestionEntity;
-import pl.wit.ilog.wit.user.model.UserEntity;
+import pl.wit.ilog.common.IMapper;
+import pl.wit.ilog.form.answer.AnswerEntity;
+import pl.wit.ilog.form.model.FormEntity;
+import pl.wit.ilog.form.question.QuestionEntity;
+import pl.wit.ilog.user.model.UserEntity;
 
 @RequiredArgsConstructor
 @Service

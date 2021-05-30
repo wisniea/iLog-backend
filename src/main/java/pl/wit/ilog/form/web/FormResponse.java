@@ -1,8 +1,8 @@
-package pl.wit.ilog.wit.form.web;
+package pl.wit.ilog.form.web;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.wit.ilog.wit.form.question.QuestionTypeEnum;
+import pl.wit.ilog.form.question.QuestionTypeEnum;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package pl.wit.ilog.wit.user.web;
+package pl.wit.ilog.user.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,8 +11,8 @@ import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import pl.wit.ilog.wit.user.model.UserEntity;
-import pl.wit.ilog.wit.user.model.UserRepository;
+import pl.wit.ilog.user.model.UserEntity;
+import pl.wit.ilog.user.model.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
