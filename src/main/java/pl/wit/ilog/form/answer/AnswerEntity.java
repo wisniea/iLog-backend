@@ -26,6 +26,6 @@ public class AnswerEntity {
     private Boolean value;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "question_id", nullable = false)
+    @JoinColumn(name = "question", nullable = false)
     private QuestionEntity question;
 }
