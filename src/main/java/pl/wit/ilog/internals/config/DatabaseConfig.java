@@ -1,4 +1,4 @@
-package pl.wit.ilog.config;
+package pl.wit.ilog.internals.config;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;

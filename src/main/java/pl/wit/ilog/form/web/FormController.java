@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.wit.ilog.common.IMapper;
+import pl.wit.ilog.user.model.IUserRepository;
+import pl.wit.ilog.util.IMapper;
 import pl.wit.ilog.form.answer.AnswerEntity;
 import pl.wit.ilog.form.answer.IAnswerRepo;
 import pl.wit.ilog.form.model.FormEntity;
@@ -15,7 +17,6 @@ import pl.wit.ilog.form.model.IModelRepo;
 import pl.wit.ilog.form.question.IQuestionRepo;
 import pl.wit.ilog.form.question.QuestionEntity;
 import pl.wit.ilog.form.question.QuestionRequest;
-import pl.wit.ilog.user.model.UserRepository;
 
 import javax.validation.constraints.NotNull;
 import java.net.URI;
@@ -35,10 +36,11 @@ public class FormController {
 
     private final IQuestionRepo questionRepo;
 
-    private final UserRepository userRepository;
+    private final IUserRepository userRepository;
 
     private final IMapper<FormEntity, FormResponse> mapper;
 
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/create")
     public ResponseEntity<FormResponse> create(@NotNull final FormCreateRequest request/*,
                                                @NotNull final UserEntity user*/) throws Exception {

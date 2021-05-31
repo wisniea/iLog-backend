@@ -1,42 +1,46 @@
 package pl.wit.ilog.user.model;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
-@Cacheable
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+})
 public class UserEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @Column(name = "username",unique = true, nullable = false)
+    private String username;
 
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
+    @Email
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    private String imageUrl;
+
+    @Column(nullable = false)
+    private Boolean emailVerified = false;
 
     @JsonIgnore
-    @Column(name = "password", nullable = false)
     private String password;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
+
+    private String providerId;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
@@ -47,5 +51,4 @@ public class UserEntity {
     )
     @Column(name="role")
     private Set<RoleEnum> roles = new HashSet<>();
-
 }

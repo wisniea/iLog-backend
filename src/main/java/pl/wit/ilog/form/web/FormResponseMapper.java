@@ -4,11 +4,11 @@ import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
-import pl.wit.ilog.common.IMapper;
+import pl.wit.ilog.user.model.UserEntity;
+import pl.wit.ilog.util.IMapper;
 import pl.wit.ilog.form.answer.AnswerEntity;
 import pl.wit.ilog.form.model.FormEntity;
 import pl.wit.ilog.form.question.QuestionEntity;
-import pl.wit.ilog.user.model.UserEntity;
 
 @RequiredArgsConstructor
 @Service

@@ -1,13 +1,14 @@
 package pl.wit.ilog;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Import;
-import pl.wit.ilog.config.DatabaseConfig;
+import pl.wit.ilog.internals.config.AppProperties;
+import pl.wit.ilog.internals.config.DatabaseConfig;
 
 @Import(DatabaseConfig.class)
-@EnableAutoConfiguration
+@EnableConfigurationProperties(AppProperties.class)
 @SpringBootApplication
 public class WitApplication {
 
