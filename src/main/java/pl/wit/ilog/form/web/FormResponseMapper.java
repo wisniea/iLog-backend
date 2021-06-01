@@ -12,15 +12,21 @@ import pl.wit.ilog.form.question.QuestionEntity;
 
 @RequiredArgsConstructor
 @Service
-public class FormResponseMapper implements IMapper<FormEntity, FormResponse> {
+public class FormResponseMapper implements IMapper<Object, FormResponse> {
 
     @Override
-    public FormResponse map(final @NotNull FormEntity e) {
+    public FormResponse map(final @NotNull Object o) {
+
+        if(!(o instanceof FormEntity)){
+            throw new IllegalArgumentException(o.getClass().getName() + " cannot be casted to FormEntity");
+        }
+        val form = (FormEntity) o;
+
         val formResponse = new FormResponse();
-        formResponse.setUuid(e.getUuid());
-        formResponse.setName(e.getName());
-        formResponse.setUser(map(e).getUser());
-        formResponse.setQuestions(map(e).getQuestions());
+        formResponse.setUuid(form.getUuid());
+        formResponse.setName(form.getName());
+        //formResponse.setUser(map(o).getUser());
+        
         return formResponse;
     }
 
