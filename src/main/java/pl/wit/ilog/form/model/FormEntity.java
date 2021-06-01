@@ -11,7 +11,6 @@ import pl.wit.ilog.form.question.QuestionEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +44,7 @@ public class FormEntity {
             fetch = FetchType.EAGER,
             orphanRemoval = true
     )
-    @Size(min = 2, max = 6)
+    //@Size(min = 1, max = 6)
     @Fetch(FetchMode.SELECT)
     private List<QuestionEntity> questions = new ArrayList<>();
 

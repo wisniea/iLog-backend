@@ -7,6 +7,7 @@ import pl.wit.ilog.form.answer.AnswerRequest;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,6 +23,6 @@ public class QuestionRequest {
     private QuestionTypeEnum type;
 
     @NotNull
-    private List<AnswerRequest> answers;
+    private List<AnswerRequest> answers = new ArrayList<>();
 
 }
