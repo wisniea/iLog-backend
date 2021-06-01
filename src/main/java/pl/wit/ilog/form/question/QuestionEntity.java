@@ -30,7 +30,8 @@ public class QuestionEntity {
     @Column(name = "type", nullable = false)
     private QuestionTypeEnum type;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL,
+                mappedBy = "answer")
     private List<AnswerEntity> answers = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

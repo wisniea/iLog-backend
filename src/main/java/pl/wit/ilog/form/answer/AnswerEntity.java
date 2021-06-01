@@ -18,14 +18,14 @@ public class AnswerEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "question_id", nullable = false)
-    private Long questionId;
+//
+//    @Column(name = "question_id", nullable = false)
+//    private Long questionId;
 
     @Column(name = "value", nullable = false)
     private Boolean value;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "question", nullable = false)
+    @JoinColumn(name = "question_id", nullable = false)
     private QuestionEntity question;
 }

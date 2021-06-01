@@ -50,7 +50,7 @@ public class FormResponseMapper implements IMapper<FormEntity, FormResponse> {
         val dto = new FormResponse.QuestionDto.AnswerDto();
         dto.setId(answer.getId());
         dto.setName(answer.getName());
-        dto.setQuestionId(answer.getQuestionId());
+        //dto.setQuestionId(answer.getQuestionId());
         dto.setValue(answer.getValue());
         return dto;
     }

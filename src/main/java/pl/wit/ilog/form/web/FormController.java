@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.wit.ilog.form.answer.AnswerEntity;
 import pl.wit.ilog.form.answer.IAnswerRepo;
 import pl.wit.ilog.form.model.FormEntity;
@@ -36,8 +38,7 @@ public class FormController {
 
     private final IMapper<FormEntity, FormResponse> mapper;
 
-    //@ResponseBody
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     @PostMapping("/create")
     public ResponseEntity<FormResponse> create(@RequestBody @NotNull final FormCreateRequest request/*,
                                                @NotNull final UserEntity user*/) throws Exception {
@@ -75,7 +76,7 @@ public class FormController {
             answer.setName(a.getName());
             answer.setValue(a.getValue());
             answer.setQuestion(question);
-            answer.setQuestionId(question.getId()); // chyba do wywalenia
+            //answer.setQuestionId(question.getId()); // chyba do wywalenia
             question.addAnswer(answer);
         });
     }
