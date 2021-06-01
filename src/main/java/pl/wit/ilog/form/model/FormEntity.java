@@ -11,10 +11,7 @@ import pl.wit.ilog.form.question.QuestionEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "form")
@@ -38,23 +35,6 @@ public class FormEntity {
     @Column(name = "created_date", nullable = false, updatable = false)
     private Date date;
 
-    @OneToMany(
-            mappedBy = "form",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            orphanRemoval = true
-    )
-    //@Size(min = 1, max = 6)
-    @Fetch(FetchMode.SELECT)
-    private List<QuestionEntity> questions = new ArrayList<>();
-
-    public void addQuestion(@NotNull final QuestionEntity question){
-        questions.add(question);
-        question.setForm(this);
-    }
-
-    public void removeQuestion(@NotNull final QuestionEntity question){
-        questions.remove(question);
-        question.setForm(null);
-    }
+    @OneToMany(mappedBy = "form", cascade = CascadeType.ALL)
+    private Set<QuestionEntity> questions = new HashSet<>();
 }

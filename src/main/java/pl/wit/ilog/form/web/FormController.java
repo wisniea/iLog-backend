@@ -21,6 +21,8 @@ import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @RestController
@@ -36,48 +38,45 @@ public class FormController {
 
     //private final IUserRepository userRepository;
 
-    private final IMapper<FormEntity, FormResponse> mapper;
+    //private final IMapper<FormEntity, FormResponse> mapper;
 
     //@PreAuthorize("hasRole('USER')")
     @PostMapping("/create")
-    public ResponseEntity<FormResponse> create(@RequestBody @NotNull final FormCreateRequest request/*,
+    public FormEntity create(@RequestBody @NotNull final FormCreateRequest request/*,
                                                @NotNull final UserEntity user*/) throws Exception {
         val form = new FormEntity();
         //form.setId(1l); ///////temp
         form.setUuid(UUID.randomUUID());
         form.setDate(new Date());
         form.setName(request.getFormName());
-        mapQuestion(request, form);
-        modelRepo.save(form);
-        val response = mapper.map(form);
+        form.setQuestions(mapQuestion(request,form).collect(Collectors.toSet()));
+        ;
+        //val response = mapper.map(form);
 
-        return ResponseEntity.created(new URI("/forms/" + response.getUuid().toString()))
-                .body(response);
+        return modelRepo.save(form) /*ResponseEntity.created(new URI("/forms/" + response.getUuid().toString()))
+                .body(response)*/;
     }
 
     // wyciągnij z FormCreateRequest QuestionRequest i zrób z każdego z nich QuestionEntity -> użyj addQuestion z pollEntity
-    private void mapQuestion(@RequestBody @NotNull FormCreateRequest request, FormEntity form){
+    private Stream<QuestionEntity> mapQuestion(@RequestBody @NotNull FormCreateRequest request, FormEntity form){
         val questionRequests = request.getQuestions();
-        questionRequests.stream().forEach((qr) -> {
-            QuestionEntity question = new QuestionEntity();
-            question.setName(qr.getName());
-            question.setType(qr.getType());
-            mapAnswer(qr, question);
-            question.setForm(form);
-            form.addQuestion(question);
-        });
-    }
-
-    // wyciągnij z QuestionRequest AnswerRequest i zrób z każdego z nich AnswerEntity
-    private void mapAnswer(@RequestBody @NotNull QuestionRequest request, QuestionEntity question){
-        val answerRequests = request.getAnswers();
-        answerRequests.stream().forEach((a) -> {
-            AnswerEntity answer = new AnswerEntity();
-            answer.setName(a.getName());
-            answer.setValue(a.getValue());
-            answer.setQuestion(question);
-            //answer.setQuestionId(question.getId()); // chyba do wywalenia
-            question.addAnswer(answer);
+        return questionRequests.stream().map(qr -> {
+             QuestionEntity question = new QuestionEntity();
+             question.setUuid(UUID.randomUUID());
+             question.setName(qr.getName());
+             question.setType(qr.getType());
+             question.setForm(form);
+             question.setAnswers(qr.getAnswers().stream().map(answer ->{
+                 val answers = new AnswerEntity();
+                 answers.setUuid(UUID.randomUUID());
+                 answers.setName(answer.getName());
+                 answers.setValue(answer.getValue());
+                 answers.setQuestion(question);
+                 answerRepo.save(answers);
+                 return answers;
+             }).collect(Collectors.toSet()));
+             questionRepo.save(question);
+         return question;
         });
     }
 }
