@@ -3,7 +3,7 @@ package pl.wit.ilog.form.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +14,8 @@ import pl.wit.ilog.form.model.FormEntity;
 import pl.wit.ilog.form.model.IModelRepo;
 import pl.wit.ilog.form.question.IQuestionRepo;
 import pl.wit.ilog.form.question.QuestionEntity;
-import pl.wit.ilog.form.question.QuestionRequest;
-import pl.wit.ilog.util.IMapper;
 
 import javax.validation.constraints.NotNull;
-import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -40,7 +37,7 @@ public class FormController {
 
     //private final IMapper<FormEntity, FormResponse> mapper;
 
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/create")
     public FormEntity create(@RequestBody @NotNull final FormCreateRequest request/*,
                                                @NotNull final UserEntity user*/) throws Exception {

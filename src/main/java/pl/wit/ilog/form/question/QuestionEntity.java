@@ -1,5 +1,6 @@
 package pl.wit.ilog.form.question;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,8 +10,9 @@ import pl.wit.ilog.form.answer.AnswerEntity;
 import pl.wit.ilog.form.model.FormEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @Table(name = "question")
 @Entity
@@ -37,8 +39,9 @@ public class QuestionEntity {
     private QuestionTypeEnum type;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private Set<AnswerEntity> answers = new HashSet<>();
+    private Set<AnswerEntity> answers = new HashSet<>();//
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL, optional = false)
     @JoinColumn(name = "form_id", nullable = false)
     private FormEntity form;
