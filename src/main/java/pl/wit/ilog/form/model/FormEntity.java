@@ -1,17 +1,18 @@
 package pl.wit.ilog.form.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import pl.wit.ilog.form.question.QuestionEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "form")
@@ -28,6 +29,10 @@ public class FormEntity {
     @Type(type="uuid-char")
     @Column(name = "uuid", nullable = false, unique = true)
     private UUID uuid;
+
+    @JsonIgnore
+    @Column(updatable = false)
+    private Long createdBy;
 
     @Column(name = "name", nullable = false)
     private String name;

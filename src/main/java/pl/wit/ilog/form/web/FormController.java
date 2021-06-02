@@ -14,6 +14,8 @@ import pl.wit.ilog.form.model.FormEntity;
 import pl.wit.ilog.form.model.IModelRepo;
 import pl.wit.ilog.form.question.IQuestionRepo;
 import pl.wit.ilog.form.question.QuestionEntity;
+import pl.wit.ilog.security.CurrentUser;
+import pl.wit.ilog.security.jwt.UserPrincipal;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -39,10 +41,12 @@ public class FormController {
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/create")
-    public FormEntity create(@RequestBody @NotNull final FormCreateRequest request/*,
+    public FormEntity create(@RequestBody @NotNull final FormCreateRequest request,
+                             @CurrentUser UserPrincipal currentUser/*,
                                                @NotNull final UserEntity user*/) throws Exception {
         val form = new FormEntity();
         //form.setId(1l); ///////temp
+        form.setCreatedBy(currentUser.getId());
         form.setUuid(UUID.randomUUID());
         form.setDate(new Date());
         form.setName(request.getFormName());
