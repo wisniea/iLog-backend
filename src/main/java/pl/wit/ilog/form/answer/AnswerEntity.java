@@ -7,8 +7,11 @@ import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import pl.wit.ilog.form.question.QuestionEntity;
+import pl.wit.ilog.form.vote.VoteEntity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Table(name = "answer")
@@ -30,11 +33,14 @@ public class AnswerEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "value", nullable = false)
-    private Boolean value;
+//    @Column(name = "value", nullable = false)
+//    private Boolean value;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL, optional = false)
     @JoinColumn(name = "question_id", nullable = false)
     private QuestionEntity question;
+
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
+    private Set<VoteEntity> votes = new HashSet<>();
 }

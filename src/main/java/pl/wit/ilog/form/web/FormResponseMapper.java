@@ -58,7 +58,7 @@ public class FormResponseMapper implements IMapper<Object, FormResponse> {
         dto.setId(answer.getId());
         dto.setName(answer.getName());
         //dto.setQuestionId(answer.getQuestionId());
-        dto.setValue(answer.getValue());
+        //dto.setValue(answer.getValue());
         return dto;
     }
 }

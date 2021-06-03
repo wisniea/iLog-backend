@@ -71,7 +71,7 @@ public class FormController {
                  val answers = new AnswerEntity();
                  answers.setUuid(UUID.randomUUID());
                  answers.setName(answer.getName());
-                 answers.setValue(answer.getValue());
+                 //answers.setValue(answer.getValue());
                  answers.setQuestion(question);
                  answerRepo.save(answers);
                  return answers;

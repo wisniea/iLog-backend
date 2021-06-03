@@ -31,7 +31,7 @@ public class FormResponse {
             private Long id;
             private Long questionId;
             private String name;
-            private Boolean value;
+            //private Boolean value;
         }
     }
 
