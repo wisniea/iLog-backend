@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+		$(document).ready(function() {
+			$("#button_login").click(function() {
+				var loginUrl = $("#login_url").val();
+				var username = $("#username").val();
+				var password = $("#password").val();
+				$.ajax({
+					type: "POST",
+					url: loginUrl,
+					data: JSON.stringify({
+						email: username,
+						password: password
+					}),
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: function(data, textStatus, xhr) {
+						$("#token").val(xhr.getResponseHeader('Authorization'));
+					},
+					error: function(xhr, textStatus, errorThrown) {
+						alert(xhr.responseText);
+					}
+				})
+			});
+
+			$("#button_execute").click(function() {
+				var url = $("#execute_url").val();
+				var method = $("#execute_method option:selected").text();
+				var token = $("#token").val();
+				var payload = (method === 'GET')? null : $("#request").val();
+				$.ajax({
+					type: method,
+					url: url,
+					data: payload,
+					contentType: "application/json; charset=utf-8",
+					headers: {
+						"Authorization": token
+					},
+					success: function(data, textStatus, xhr) {
+					    var json = JSON.parse(xhr.responseText);
+						$("#response").val(JSON.stringify(json, null, '\t'));
+					},
+					error: function(xhr, textStatus, errorThrown) {
+						alert(xhr.responseText);
+					}
+				});
+			});
+		});
+
+    </script>
+</head>
+
+<body>
+<div>
+    <label for="login_url">Login url</label>
+    <input type="text" size="120" id="login_url" value="http://localhost:8080/oauth/login"/>
+</div>
+<div>
+    <label for="username">Username </label>
+    <input type="text" size="120" id="username" value="login"/>
+</div>
+<div>
+    <label for="password">Password </label>
+    <input type="text" size="120" id="password" value="haslo"/>
+</div>
+<div>
+    <button id="button_login">Login</button>
+</div>
+<div>
+    <label for="execute_method">Method </label>
+    <select id="execute_method">
+        <option value="GET" selected>GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+    </select>
+</div>
+<div>
+    <label for="execute_url">Url </label>
+    <input type="text" size="120" id="execute_url"/>
+</div>
+<div>
+    <label for="token">Token </label>
+    <input type="text" size="120" id="token"/>
+</div>
+<div>
+    <label for="request">Request </label>
+    <textarea rows="5" cols="80" id="request"></textarea>
+</div>
+<div>
+    <label for="response">Response </label>
+    <textarea rows="5" cols="80" id="response"></textarea>
+</div>
+<div>
+    <button id="button_execute">Execute</button>
+</div>
+</body>
+
+</html>
