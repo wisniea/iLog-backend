@@ -15,7 +15,4 @@ public class AnswerRequest {
     @Size(max = 511, message = "Too big")
     private String name;
 
-    @NotNull
-    private Boolean value;
-
 }

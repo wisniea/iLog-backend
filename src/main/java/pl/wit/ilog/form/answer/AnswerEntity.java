@@ -1,15 +1,11 @@
 package pl.wit.ilog.form.answer;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.Type;
 import pl.wit.ilog.form.question.QuestionEntity;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Table(name = "answer")
 @Entity
@@ -22,19 +18,10 @@ public class AnswerEntity {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @NaturalId
-    @Type(type="uuid-char")
-    @Column(name = "uuid", nullable = false, unique = true)
-    private UUID uuid;
+    @Column(name = "text", nullable = false)
+    private String text;
 
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Column(name = "value", nullable = false)
-    private Boolean value;
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "question_id", nullable = false)
     private QuestionEntity question;
 }

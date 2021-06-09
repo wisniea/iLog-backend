@@ -17,7 +17,7 @@ public class QuestionRequest {
 
     @NotEmpty(message = "missing")
     @Size(max = 511, message = "Too big")
-    private String name;
+    private String question;
 
     @NotEmpty(message = "missing")
     private QuestionTypeEnum type;

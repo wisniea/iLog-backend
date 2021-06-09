@@ -1,4 +1,4 @@
-package pl.wit.ilog.internals.payload;
+package pl.wit.ilog.user.web.payload;
 
 import lombok.Getter;
 import lombok.Setter;

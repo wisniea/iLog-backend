@@ -1,18 +1,13 @@
 package pl.wit.ilog.form.question;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.Type;
 import pl.wit.ilog.form.answer.AnswerEntity;
-import pl.wit.ilog.form.model.FormEntity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "question")
 @Entity
@@ -23,27 +18,20 @@ public class QuestionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @NaturalId
-    @Type(type="uuid-char")
-    @Column(name = "uuid", nullable = false, unique = true)
-    private UUID uuid;
-
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "question")
+    private String question;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private QuestionTypeEnum type;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private Set<AnswerEntity> answers = new HashSet<>();//
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL, optional = false)
-    @JoinColumn(name = "form_id", nullable = false)
-    private FormEntity form;
-
+    @OneToMany(
+            mappedBy = "id",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true
+    )
+    private List<AnswerEntity> answers = new ArrayList<>();
 }

@@ -1,4 +1,5 @@
 package pl.wit.ilog.user.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -51,4 +52,5 @@ public class UserEntity {
     )
     @Column(name="role")
     private Set<RoleEnum> roles = new HashSet<>();
+
 }

@@ -1,17 +1,17 @@
 package pl.wit.ilog.form.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import pl.wit.ilog.form.question.QuestionEntity;
+import pl.wit.ilog.user.model.UserEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -30,9 +30,9 @@ public class FormEntity {
     @Column(name = "uuid", nullable = false, unique = true)
     private UUID uuid;
 
-    @JsonIgnore
-    @Column(updatable = false)
-    private Long createdBy;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "created_by", nullable = false)
+    private UserEntity createdBy;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -40,6 +40,11 @@ public class FormEntity {
     @Column(name = "created_date", nullable = false, updatable = false)
     private Date date;
 
-    @OneToMany(mappedBy = "form", cascade = CascadeType.ALL)
-    private Set<QuestionEntity> questions = new HashSet<>();
+    @OneToMany(
+            mappedBy = "question",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true
+    )
+    private List<QuestionEntity> questions = new ArrayList<>();
 }
