@@ -64,12 +64,9 @@ public class FormController {
             questions.setQuestion(question.getQuestion());
             questions.setType(question.getType());
             List<AnswerEntity> answers = question.getAnswers().stream().map(answerEntity -> {
-                val questionAnswer = new QuestionEntity();
-                questionAnswer.setQuestion(question.getQuestion());
-                questionAnswer.setType(question.getType());
                 val answer = new AnswerEntity();
                 answer.setText(answerEntity.getName());
-                answer.setQuestion(questionAnswer);
+                answer.setQuestion(questions);
                 answerRepo.save(answer);
                 return answer;
             }).collect(Collectors.toList());
