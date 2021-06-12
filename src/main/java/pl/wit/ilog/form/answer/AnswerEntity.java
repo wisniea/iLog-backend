@@ -1,6 +1,5 @@
 package pl.wit.ilog.form.answer;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,8 +21,7 @@ public class AnswerEntity {
     @Column(name = "text", nullable = false)
     private String text;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "question_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "question_id", nullable = false, updatable = false)
     private QuestionEntity question;
 }

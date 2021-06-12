@@ -11,7 +11,7 @@ spring:
   datasource:
     url: jdbc:mysql://${ILOG_DATABASE_HOST:localhost}:${ILOG_DATABASE_PORT:3306}/${ILOG_DATABASE:iLog}
     username: ${DATABASE_USER:root}
-    password: ${DATABASE_PASSWORD:daniel1998}
+    password: ${DATABASE_PASSWORD:root}
   jpa:
     hibernate:
       ddl-auto: update
