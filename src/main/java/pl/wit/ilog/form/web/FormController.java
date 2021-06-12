@@ -82,31 +82,4 @@ public class FormController {
 
         return form;
     }
-
- /*   private Stream<QuestionEntity> mapQuestion(@RequestBody @NotNull FormCreateRequest request, FormEntity form){
-        val questionRequests = request.getQuestions();
-
-        return questionRequests.stream().map(qr -> {
-             val question = new QuestionEntity();
-
-             question.setUuid(UUID.randomUUID());
-             question.setName(qr.getName());
-             question.setType(qr.getType());
-             question.setForm(form);
-             question.setAnswers(qr.getAnswers().stream().map(answer ->{
-                 val answers = new AnswerEntity();
-
-                 answers.setUuid(UUID.randomUUID());
-                 answers.setName(answer.getName());
-                 answers.setQuestion(question);
-                 answerRepo.save(answers);
-
-                 return answers;
-             }).collect(Collectors.toSet()));
-
-             questionRepo.save(question);
-
-         return question;
-        });
-    }*/
 }
