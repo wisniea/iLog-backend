@@ -9,15 +9,15 @@ spring:
   application:
     name: iLog-backend
   datasource:
-    url: jdbc:postgresql://${ILOG_DATABASE_HOST:localhost}:${ILOG_DATABASE_PORT:5432}/${ILOG_DATABASE:iLog}
-    username: ${DATABASE_USER:postgres}
+    url: jdbc:mysql://${ILOG_DATABASE_HOST:localhost}:${ILOG_DATABASE_PORT:3306}/${ILOG_DATABASE:iLog}
+    username: ${DATABASE_USER:root}
     password: ${DATABASE_PASSWORD:root}
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL92Dialect
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   security:
     oauth2:
       client:

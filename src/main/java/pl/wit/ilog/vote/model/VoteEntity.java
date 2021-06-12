@@ -1,11 +1,14 @@
 package pl.wit.ilog.vote.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import pl.wit.ilog.form.model.FormEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "vote")
 @Entity
@@ -21,8 +24,9 @@ public class VoteEntity {
     @Column(name = "ip", nullable = false)
     private String ip;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "poll_id", nullable = false)
+    @JoinColumn(name = "form_id", nullable = false)
     private FormEntity form;
 
     @Enumerated(EnumType.STRING)
@@ -32,4 +36,11 @@ public class VoteEntity {
     @Column(name = "age", nullable = false)
     private Integer age;
 
+    @OneToMany(
+            mappedBy = "id",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true
+    )
+    private List<PickEntity> picks = new ArrayList<>();
 }
