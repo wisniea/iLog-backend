@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class CastAnswerRequest {
+public class CastPickRequest {
 
     @NotNull
     private Long answerId;
@@ -16,3 +16,4 @@ public class CastAnswerRequest {
     @Size(max = 1024)
     private String textAnswer;
 }
+

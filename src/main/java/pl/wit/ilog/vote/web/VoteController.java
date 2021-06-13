@@ -3,19 +3,15 @@ package pl.wit.ilog.vote.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.wit.ilog.form.model.IFormRepo;
 import pl.wit.ilog.internals.exception.EntityNotFoundException;
-import pl.wit.ilog.vote.model.IPickRepo;
-import pl.wit.ilog.vote.model.IVoteRepo;
-import pl.wit.ilog.vote.model.PickEntity;
-import pl.wit.ilog.vote.model.VoteEntity;
+import pl.wit.ilog.vote.model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -30,8 +26,9 @@ public class VoteController {
 
     private final IFormRepo formRepo;
 
-    @PostMapping("/castVote")
+    @PostMapping("{uuid}/castVote")
     public VoteEntity castVote(@RequestBody @NotNull final CastVoteRequest request,
+                               @PathVariable @NotNull final UUID uuid,
                                @NotNull HttpServletRequest httpRequest){
         val vote = new VoteEntity();
         vote.setAge(request.getAge());
@@ -45,11 +42,21 @@ public class VoteController {
             return pick;
         }).collect(Collectors.toList()));
 
-        val form = formRepo.findByUuid(request.getFormId())
+        val form = formRepo.findByUuid(uuid)
                 .orElseThrow(EntityNotFoundException::new);
         vote.setForm(form);
 
         voteRepo.save(vote);
         return vote;
+    }
+
+    @GetMapping("{uuid}/insights/{answerId}")
+    List<AnswerPickCount> getAllByAnswerId(@PathVariable(name = "answerId") @NotNull Long answerId){
+        return voteRepo.allAnswerIdPicksAmount(answerId);
+    }
+
+    @GetMapping("{uuid}/insights/age/{answerId}")
+    List<AnswerPickCount> getAllByAge(@PathVariable(name = "answerId") @NotNull Long answerId){
+        return voteRepo.findAllByAge();
     }
 }

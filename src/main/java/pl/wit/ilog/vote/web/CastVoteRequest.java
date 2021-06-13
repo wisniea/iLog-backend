@@ -9,14 +9,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class CastVoteRequest {
-
-    @NotNull
-    private UUID formId;
 
     @NotEmpty(message = "missing")
     private SexEnum sex;
@@ -25,6 +21,6 @@ public class CastVoteRequest {
     private AgeEnum age;
 
     @NotNull
-    private List<CastAnswerRequest> answers = new ArrayList<>();
+    private List<CastPickRequest> answers = new ArrayList<>();
 
 }
