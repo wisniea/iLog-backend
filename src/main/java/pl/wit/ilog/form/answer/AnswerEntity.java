@@ -22,8 +22,7 @@ public class AnswerEntity {
     @Column(name = "text", nullable = false)
     private String text;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "question_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "question_id", nullable = false, updatable = false)
     private QuestionEntity question;
 }

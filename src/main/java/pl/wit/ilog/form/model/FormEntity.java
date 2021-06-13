@@ -41,7 +41,7 @@ public class FormEntity {
     private Date date;
 
     @OneToMany(
-            mappedBy = "question",
+            mappedBy = "form",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             orphanRemoval = true

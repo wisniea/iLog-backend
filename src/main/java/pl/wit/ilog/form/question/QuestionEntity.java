@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import pl.wit.ilog.form.answer.AnswerEntity;
+import pl.wit.ilog.form.model.FormEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class QuestionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "question")
@@ -27,11 +29,10 @@ public class QuestionEntity {
     @Column(name = "type", nullable = false)
     private QuestionTypeEnum type;
 
-    @OneToMany(
-            mappedBy = "id",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            orphanRemoval = true
-    )
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "form_id", nullable = false, updatable = false)
+    private FormEntity form;
+
+    @OneToMany(mappedBy = "question")
     private List<AnswerEntity> answers = new ArrayList<>();
 }
