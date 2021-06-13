@@ -30,7 +30,7 @@ public class VoteController {
 
     private final IFormRepo formRepo;
 
-    @PostMapping("/cast")
+    @PostMapping("/castVote")
     public VoteEntity castVote(@RequestBody @NotNull final CastVoteRequest request,
                                @NotNull HttpServletRequest httpRequest){
         val vote = new VoteEntity();
@@ -40,6 +40,7 @@ public class VoteController {
         vote.setPicks(request.getAnswers().stream().map(answer -> {
             val pick = new PickEntity();
             pick.setAnswerId(answer.getAnswerId());
+            pick.setTextAnswer(answer.getTextAnswer());
             pickRepo.save(pick);
             return pick;
         }).collect(Collectors.toList()));

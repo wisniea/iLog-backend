@@ -33,11 +33,12 @@ public class VoteEntity {
     @Column(name = "sex", nullable = false)
     private SexEnum sex;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "age", nullable = false)
-    private Integer age;
+    private AgeEnum age;
 
     @OneToMany(
-            mappedBy = "id",
+            mappedBy = "vote",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             orphanRemoval = true

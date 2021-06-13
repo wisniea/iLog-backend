@@ -25,4 +25,8 @@ public class PickEntity{
     // ?
     @Column(name = "text_answer")
     private String textAnswer;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "vote_id", nullable = false, updatable = false)
+    private VoteEntity vote;
 }

@@ -2,10 +2,9 @@ package pl.wit.ilog.vote.web;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.wit.ilog.vote.model.AgeEnum;
 import pl.wit.ilog.vote.model.SexEnum;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -22,10 +21,8 @@ public class CastVoteRequest {
     @NotEmpty(message = "missing")
     private SexEnum sex;
 
-    @Min(0)
-    @Max(100)
     @NotNull
-    private Integer age;
+    private AgeEnum age;
 
     @NotNull
     private List<CastAnswerRequest> answers = new ArrayList<>();
