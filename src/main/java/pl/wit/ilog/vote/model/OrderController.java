@@ -2,12 +2,8 @@ package pl.wit.ilog.vote.model;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @Slf4j
 @RestController
@@ -23,10 +19,10 @@ public class OrderController {
         return voteRepo.allAnswerIdsPicksAmount();
     }
 */
-    @GetMapping("/answerPicks/{answerId}")
-    public AnswerPickCount answerIdPickAmount(@Valid @PathVariable("answerId") final Long answerId){
-        return voteRepo.answerIdPicksAmount(answerId);
-    }
+//    @GetMapping("/answerPicks/{answerId}")
+//    public AnswerPickCount answerIdPickAmount(@Valid @PathVariable("answerId") final Long answerId){
+//        return voteRepo.answerIdPicksAmount(answerId);
+//    }
 
     /*
     @GetMapping("/picksByAges")

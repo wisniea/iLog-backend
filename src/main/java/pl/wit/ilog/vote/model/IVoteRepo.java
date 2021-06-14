@@ -17,7 +17,7 @@ public interface IVoteRepo extends JpaRepository<VoteEntity, Long> {
    /* @Query("SELECT NEW pl.wit.ilog.vote.model.AgePickCount(v.age, count(v.age)) FROM VoteEntity v WHERE v.age = :age")
     List<AgePickCount> answerIdPicksByAgeAmount(@Param("answerId") Long answerId);*/
 
-    List<VoteEntity> findAllByAge(AgeEnum age);
+    //List<VoteEntity> findAllByAge(AgeEnum age);
    /* @Deprecated
     @Query("SELECT NEW pl.wit.ilog.vote.model.AnswerPickCount(p.answerId, count(p.id)) FROM PickEntity p WHERE p. GROUP BY p.answerId")
     List<AnswerPickCount> allAnswerIdsPicksAmount(@Param("formId") Long formId);*/

@@ -50,13 +50,14 @@ public class VoteController {
         return vote;
     }
 
+    // return answerId = null, count = 0 if answer amount = 0, else return answerId = id, amount = {number > 0}
     @GetMapping("{uuid}/insights/{answerId}")
     List<AnswerPickCount> getAllByAnswerId(@PathVariable(name = "answerId") @NotNull Long answerId){
         return voteRepo.allAnswerIdPicksAmount(answerId);
     }
 
-    @GetMapping("{uuid}/insights/age/{answerId}")
-    List<AnswerPickCount> getAllByAge(@PathVariable(name = "answerId") @NotNull Long answerId){
-        return voteRepo.findAllByAge();
-    }
+//    @GetMapping("{uuid}/insights/age/{answerId}")
+//    List<AnswerPickCount> getAllByAge(@PathVariable(name = "answerId") @NotNull Long answerId){
+//        return voteRepo.findAllByAge();
+//    }
 }

@@ -1,5 +1,6 @@
 package pl.wit.ilog.vote.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class PickEntity{
     @Column(name = "text_answer")
     private String textAnswer;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "vote_id", nullable = false, updatable = false)
     private VoteEntity vote;
