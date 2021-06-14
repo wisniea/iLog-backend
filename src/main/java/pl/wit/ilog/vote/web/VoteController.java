@@ -56,6 +56,92 @@ public class VoteController {
         return voteRepo.allAnswerIdPicksAmount(answerId);
     }
 
+    @GetMapping("{uuid}/sexesMetrics")
+    List<AnswerSexCount> answerIdSexesMetrics(@PathVariable @NotNull final UUID uuid){
+        return voteRepo.answerIdSexesMetrics(uuid);
+    }
+
+    @GetMapping("/globalSexesMetrics")
+    List<AnswerSexCount> globalAnswerIdSexesMetrics(){
+        return voteRepo.globalAnswerIdSexesMetrics();
+    }
+
+    @GetMapping("{uuid}/agesMetrics")
+    List<AgePickCount> answerIdAgesMetrics(@PathVariable @NotNull final UUID uuid){
+        return voteRepo.answerIdAgesMetrics(uuid);
+    }
+
+    @GetMapping("/globalAgesMetrics")
+    List<AgePickCount> globalAnswerIdAgesMetrics(){
+        return voteRepo.globalAnswerIdAgesMetrics();
+    }
+
+    @GetMapping("{uuid}/votes")
+    List<AnswerPickCount> answerIpPicksCount(@PathVariable @NotNull final UUID uuid){
+        return voteRepo.answerIpPicksCount(uuid);
+    }
+
+    @GetMapping("/globalVotes")
+    List<AnswerPickCount> globalAnswerIdPicksCount(){
+        return voteRepo.globalAnswerIdPicksCount();
+    }
+
+    @GetMapping("{uuid}/sexesAgesMetrics")
+    List<AnswerAgeSexCount> answerIdSexesAgesCount(@PathVariable @NotNull final UUID uuid){
+        return voteRepo.answerIdSexesAgesCount(uuid);
+    }
+
+    @GetMapping("/globalSexesAgesMetrics")
+    List<AnswerAgeSexCount> globalAnswerIdSexesAgesCount(){
+        return voteRepo.globalAnswerIdSexesAgesCount();
+    }
+
+    @GetMapping("{uuid}/sexFormCount")
+    List<SexCount> sexFormCount(@PathVariable @NotNull final UUID uuid) {
+        return voteRepo.sexFormCount(uuid);
+    }
+
+    @GetMapping("/globalSexCount")
+    List<SexCount> globalSexCount(){
+        return voteRepo.globalSexCount();
+    }
+
+    @GetMapping("{uuid}/ageFormCount")
+    List<AgeCount> ageFormCount(@PathVariable @NotNull final UUID uuid) {
+        return voteRepo.ageFormCount(uuid);
+    }
+
+    @GetMapping("/globalAgeCount")
+    List<AgeCount> globalAgeCount(){
+        return voteRepo.globalAgeCount();
+    }
+
+    // TEXT ANSWERS
+    @GetMapping("{uuid}/textAnswers")
+    List<TextAnswer> allTextAnswersFromForm(@PathVariable @NotNull final UUID uuid){
+        return voteRepo.allTextAnswersFromForm(uuid);
+    }
+
+    @GetMapping("{uuid}/textAnswers/{answerId}")
+    List<TextAnswer> allTextAnswersForSpecificAnswer(@PathVariable @NotNull final UUID uuid,
+                                                     @PathVariable Long answerId){
+        return voteRepo.allTextAnswersForSpecificAnswer(uuid, answerId);
+    }
+
+    /////////////////// DEPRECATED ///////////////////
+    // OLD
+    @GetMapping("{uuid}/sexesMetricsOld")
+    List<AnswerSexCount> answerIdSexesMetricsOLD(@PathVariable @NotNull final UUID uuid){
+        return voteRepo.answerIdSexesMetricsOLD(uuid);
+    }
+
+    // OLD
+    @GetMapping("/globalSexesMetricsOld")
+    List<AnswerSexCount> globalAnswerIdSexesMetricsOLD(){
+        return voteRepo.globalAnswerIdSexesMetricsOLD();
+    }
+
+
 //    @GetMapping("{uuid}/insights/age/{answerId}")
 //    List<AnswerPickCount> getAllByAge(@PathVariable(name = "answerId") @NotNull Long answerId){
 //        return voteRepo.findAllByAge();
