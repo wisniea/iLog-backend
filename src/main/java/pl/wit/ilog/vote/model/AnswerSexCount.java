@@ -10,6 +10,6 @@ import lombok.Setter;
 public class AnswerSexCount {
 
     private Long answerId;
-    private SexEnum sexEnum;
+    private GenderEnum sexEnum;
     private Long count;
 }

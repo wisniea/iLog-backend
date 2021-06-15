@@ -30,8 +30,8 @@ public class VoteEntity {
     private FormEntity form;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sex", nullable = false)
-    private SexEnum sex;
+    @Column(name = "gender", nullable = false)
+    private GenderEnum gender;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "age", nullable = false)

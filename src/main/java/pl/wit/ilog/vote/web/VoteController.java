@@ -32,7 +32,7 @@ public class VoteController {
                                @NotNull HttpServletRequest httpRequest){
         val vote = new VoteEntity();
         vote.setAge(request.getAge());
-        vote.setSex(request.getSex());
+        vote.setGender(request.getSex());
         vote.setIp(httpRequest.getRemoteAddr());
         vote.setPicks(request.getAnswers().stream().map(answer -> {
             val pick = new PickEntity();
@@ -58,12 +58,12 @@ public class VoteController {
 
     @GetMapping("{uuid}/sexesMetrics")
     List<AnswerSexCount> answerIdSexesMetrics(@PathVariable @NotNull final UUID uuid){
-        return voteRepo.answerIdSexesMetrics(uuid);
+        return voteRepo.answerIdGenderMetrics(uuid);
     }
 
     @GetMapping("/globalSexesMetrics")
     List<AnswerSexCount> globalAnswerIdSexesMetrics(){
-        return voteRepo.globalAnswerIdSexesMetrics();
+        return voteRepo.globalAnswerIdGenderMetrics();
     }
 
     @GetMapping("{uuid}/agesMetrics")
@@ -88,22 +88,22 @@ public class VoteController {
 
     @GetMapping("{uuid}/sexesAgesMetrics")
     List<AnswerAgeSexCount> answerIdSexesAgesCount(@PathVariable @NotNull final UUID uuid){
-        return voteRepo.answerIdSexesAgesCount(uuid);
+        return voteRepo.answerIdGenderAgesCount(uuid);
     }
 
     @GetMapping("/globalSexesAgesMetrics")
     List<AnswerAgeSexCount> globalAnswerIdSexesAgesCount(){
-        return voteRepo.globalAnswerIdSexesAgesCount();
+        return voteRepo.globalAnswerIdGenderAgesCount();
     }
 
     @GetMapping("{uuid}/sexFormCount")
     List<SexCount> sexFormCount(@PathVariable @NotNull final UUID uuid) {
-        return voteRepo.sexFormCount(uuid);
+        return voteRepo.genderFormCount(uuid);
     }
 
     @GetMapping("/globalSexCount")
     List<SexCount> globalSexCount(){
-        return voteRepo.globalSexCount();
+        return voteRepo.globalGenderCount();
     }
 
     @GetMapping("{uuid}/ageFormCount")
@@ -128,22 +128,4 @@ public class VoteController {
         return voteRepo.allTextAnswersForSpecificAnswer(uuid, answerId);
     }
 
-    /////////////////// DEPRECATED ///////////////////
-    // OLD
-    @GetMapping("{uuid}/sexesMetricsOld")
-    List<AnswerSexCount> answerIdSexesMetricsOLD(@PathVariable @NotNull final UUID uuid){
-        return voteRepo.answerIdSexesMetricsOLD(uuid);
-    }
-
-    // OLD
-    @GetMapping("/globalSexesMetricsOld")
-    List<AnswerSexCount> globalAnswerIdSexesMetricsOLD(){
-        return voteRepo.globalAnswerIdSexesMetricsOLD();
-    }
-
-
-//    @GetMapping("{uuid}/insights/age/{answerId}")
-//    List<AnswerPickCount> getAllByAge(@PathVariable(name = "answerId") @NotNull Long answerId){
-//        return voteRepo.findAllByAge();
-//    }
 }

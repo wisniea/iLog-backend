@@ -1,5 +1,5 @@
 package pl.wit.ilog.vote.model;
 
-public enum SexEnum {
+public enum GenderEnum {
     MALE, FEMALE, OTHER
 }
