@@ -79,7 +79,7 @@ public class VoteController {
 
     @GetMapping("{uuid}/votes")
     List<AnswerPickCount> answerIpPicksCount(@PathVariable @NotNull final UUID uuid){
-        return voteRepo.answerIpPicksCount(uuid);
+        return voteRepo.answerIdPicksCount(uuid);
     }
 
     @GetMapping("/globalVotes")

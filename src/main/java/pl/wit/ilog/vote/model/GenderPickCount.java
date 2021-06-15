@@ -9,6 +9,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GenderPickCount {
 
-    private GenderEnum sex;
+    private GenderEnum gender;
     private Long count;
 }
