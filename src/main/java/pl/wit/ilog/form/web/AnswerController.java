@@ -54,7 +54,7 @@ public class AnswerController {
     }
 
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/{formUuid}/questions/{questionId}")
+    @PostMapping("/{formUuid}/questions/{questionId}/answers")
     public ResponseEntity<AnswerResponse> create(@RequestBody @NotNull final AnswerRequest request,
                                  @Valid @PathVariable("formUuid") final UUID formUuid,
                                  @Valid @PathVariable("questionId") final Long questionId) throws Exception{
