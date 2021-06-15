@@ -41,6 +41,8 @@ public class QuestionController {
                 .map(mapper::map)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
+    @PreAuthorize("hasRole('USER')")
     @Transactional
     @GetMapping("/{formUuid}/questions")
     public List<QuestionResponse> getAllAnswers(@Valid @PathVariable("formUuid") final UUID formUuid) {

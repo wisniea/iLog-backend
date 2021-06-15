@@ -42,6 +42,7 @@ public class AnswerController {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @Transactional
     @GetMapping("/{formUuid}/questions/{questionId}/answers")
     public List<AnswerResponse> getAllAnswers(@Valid @PathVariable("formUuid") final UUID formUuid,
