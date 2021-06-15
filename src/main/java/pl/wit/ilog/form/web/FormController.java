@@ -41,7 +41,9 @@ public class FormController {
                 .map(mapper::map)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
     @Transactional
+    @PreAuthorize("hasRole('USER')")
     @GetMapping()
     public List<FormResponse> getAllForms(@CurrentUser UserPrincipal currentUser) {
         val user = userRepository.findById(currentUser.getId())
