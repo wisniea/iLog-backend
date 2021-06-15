@@ -32,7 +32,7 @@ public class VoteController {
                                @NotNull HttpServletRequest httpRequest){
         val vote = new VoteEntity();
         vote.setAge(request.getAge());
-        vote.setGender(request.getSex());
+        vote.setGender(request.getGender());
         vote.setIp(httpRequest.getRemoteAddr());
         vote.setPicks(request.getAnswers().stream().map(answer -> {
             val pick = new PickEntity();
@@ -51,18 +51,19 @@ public class VoteController {
     }
 
     // return answerId = null, count = 0 if answer amount = 0, else return answerId = id, amount = {number > 0}
-    @GetMapping("{uuid}/insights/{answerId}")
-    List<AnswerPickCount> getAllByAnswerId(@PathVariable(name = "answerId") @NotNull Long answerId){
+    @GetMapping("{formUuid}/insights/{answerId}")
+    List<AnswerPickCount> getAllByAnswerId(@PathVariable(name = "formUuid") @NotNull UUID formUuid,
+                                           @PathVariable(name = "answerId") @NotNull Long answerId){
         return voteRepo.allAnswerIdPicksAmount(answerId);
     }
 
-    @GetMapping("{uuid}/sexesMetrics")
-    List<AnswerSexCount> answerIdSexesMetrics(@PathVariable @NotNull final UUID uuid){
+    @GetMapping("{uuid}/gendersMetrics")
+    List<AnswerGenderCount> answerIdGendersMetrics(@PathVariable @NotNull final UUID uuid){
         return voteRepo.answerIdGenderMetrics(uuid);
     }
 
-    @GetMapping("/globalSexesMetrics")
-    List<AnswerSexCount> globalAnswerIdSexesMetrics(){
+    @GetMapping("/globalGendersMetrics")
+    List<AnswerGenderCount> globalAnswerIdGenderMetrics(){
         return voteRepo.globalAnswerIdGenderMetrics();
     }
 
@@ -86,23 +87,23 @@ public class VoteController {
         return voteRepo.globalAnswerIdPicksCount();
     }
 
-    @GetMapping("{uuid}/sexesAgesMetrics")
-    List<AnswerAgeSexCount> answerIdSexesAgesCount(@PathVariable @NotNull final UUID uuid){
+    @GetMapping("{uuid}/gendersAgesMetrics")
+    List<AnswerAgeGenderCount> answerIdGenderAgesCount(@PathVariable @NotNull final UUID uuid){
         return voteRepo.answerIdGenderAgesCount(uuid);
     }
 
-    @GetMapping("/globalSexesAgesMetrics")
-    List<AnswerAgeSexCount> globalAnswerIdSexesAgesCount(){
+    @GetMapping("/globalGendersAgesMetrics")
+    List<AnswerAgeGenderCount> globalAnswerIdGenderAgesCount(){
         return voteRepo.globalAnswerIdGenderAgesCount();
     }
 
-    @GetMapping("{uuid}/sexFormCount")
-    List<SexCount> sexFormCount(@PathVariable @NotNull final UUID uuid) {
+    @GetMapping("{uuid}/genderFormCount")
+    List<GenderCount> genderFormCount(@PathVariable @NotNull final UUID uuid) {
         return voteRepo.genderFormCount(uuid);
     }
 
-    @GetMapping("/globalSexCount")
-    List<SexCount> globalSexCount(){
+    @GetMapping("/globalGenderCount")
+    List<GenderCount> globalGenderCount(){
         return voteRepo.globalGenderCount();
     }
 
