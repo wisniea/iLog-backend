@@ -17,14 +17,14 @@ public interface IVoteRepo extends JpaRepository<VoteEntity, Long> {
     @Query("SELECT NEW pl.wit.ilog.vote.model.AnswerPickCount(p.answerId, count(p.id)) FROM PickEntity p WHERE p.answerId = :answerId")
     List<AnswerPickCount> allAnswerIdPicksAmount(@Param("answerId") Long answerId);
 
-    // returns gender metrics for all forms (answerId -> metrics)
+    // returns gender metrics for all forms (answerId -> gender metrics -> count)
     @Query("SELECT NEW pl.wit.ilog.vote.model.AnswerGenderCount(p.answerId, v.gender, count(v.gender)) FROM PickEntity p " +
             "LEFT JOIN VoteEntity v ON p.vote.id = v.id " +
             "LEFT JOIN FormEntity f ON v.form.id = f.id " +
             "GROUP BY p.answerId, v.gender")
     List<AnswerGenderCount> globalAnswerIdGenderMetrics();
 
-    // returns gender metrics for specific form (answerId -> metrics)
+    // returns gender metrics for specific form (answerId -> gender metrics -> count)
     @Query("SELECT NEW pl.wit.ilog.vote.model.AnswerGenderCount(p.answerId, v.gender, count(v.gender)) FROM PickEntity p " +
             "LEFT JOIN VoteEntity v ON p.vote.id = v.id " +
             "LEFT JOIN FormEntity f ON v.form.id = f.id " +
@@ -33,14 +33,14 @@ public interface IVoteRepo extends JpaRepository<VoteEntity, Long> {
     List<AnswerGenderCount> answerIdGenderMetrics(@Param("uuid") @NotNull final UUID uuid);
 
     // how many people of each age selected each answer
-    // returns age metrics for all forms (answerId -> metrics)
+    // returns age metrics for all forms (answerId -> age metrics -> count)
     @Query("SELECT NEW pl.wit.ilog.vote.model.AgePickCount(p.answerId, v.age, count(v.age)) FROM PickEntity p " +
             "LEFT JOIN VoteEntity v ON p.vote.id = v.id " +
             "LEFT JOIN FormEntity f ON v.form.id = f.id " +
             "GROUP BY p.answerId, v.age")
     List<AgePickCount> globalAnswerIdAgesMetrics();
 
-    // returns age metrics for specific form (answerId -> metrics)
+    // returns age metrics for specific form (answerId -> age metrics -> count)
     @Query("SELECT NEW pl.wit.ilog.vote.model.AgePickCount(p.answerId, v.age, count(v.age)) FROM PickEntity p " +
             "LEFT JOIN VoteEntity v ON p.vote.id = v.id " +
             "LEFT JOIN FormEntity f ON v.form.id = f.id " +
@@ -48,25 +48,27 @@ public interface IVoteRepo extends JpaRepository<VoteEntity, Long> {
             "GROUP BY p.answerId, v.age")
     List<AgePickCount> answerIdAgesMetrics(@Param("uuid") @NotNull final UUID uuid);
 
-    //  return votes
+    //  return votes from all forms
     @Query("SELECT NEW pl.wit.ilog.vote.model.AnswerPickCount(p.answerId, count(p.answerId)) FROM PickEntity p " +
             "GROUP BY p.answerId")
     List<AnswerPickCount> globalAnswerIdPicksCount();
 
+    // return votes from specific form (answerId - votes)
     @Query("SELECT NEW pl.wit.ilog.vote.model.AnswerPickCount(p.answerId, count(p.answerId)) FROM PickEntity p " +
             "LEFT JOIN VoteEntity v ON p.vote.id = v.id " +
             "LEFT JOIN FormEntity f ON f.id = v.form.id " +
             "WHERE f.uuid = :uuid " +
             "GROUP BY p.answerId")
-    List<AnswerPickCount> answerIpPicksCount(@Param("uuid") @NotNull final UUID uuid);
+    List<AnswerPickCount> answerIdPicksCount(@Param("uuid") @NotNull final UUID uuid);
 
-    // returns sex and age metrics
+    // returns gender and age metrics (all forms - global metrics))
     @Query("SELECT NEW pl.wit.ilog.vote.model.AnswerAgeGenderCount(p.answerId, v.gender, v.age, count(v.gender)) FROM PickEntity p " +
             "LEFT JOIN VoteEntity v ON p.vote.id = v.id " +
             "LEFT JOIN FormEntity f ON f.id = v.form.id " +
             "GROUP BY p.answerId, v.gender, v.age")
     List<AnswerAgeGenderCount> globalAnswerIdGenderAgesCount();
 
+    // returns gender and age metrics (specific form)
     @Query("SELECT NEW pl.wit.ilog.vote.model.AnswerAgeGenderCount(p.answerId, v.gender, v.age, count(v.gender)) FROM PickEntity p " +
             "LEFT JOIN VoteEntity v ON p.vote.id = v.id " +
             "LEFT JOIN FormEntity f ON f.id = v.form.id " +
@@ -74,13 +76,14 @@ public interface IVoteRepo extends JpaRepository<VoteEntity, Long> {
             "GROUP BY p.answerId, v.gender, v.age")
     List<AnswerAgeGenderCount> answerIdGenderAgesCount(@Param("uuid") @NotNull final UUID uuid);
 
-    // how many people of each gender voted (in all form)
+    // how many people of each gender voted (specific form)
     @Query("SELECT NEW pl.wit.ilog.vote.model.GenderCount(v.gender, count(v.gender)) FROM VoteEntity v " +
             "LEFT JOIN FormEntity f ON f.id = v.form.id " +
             "WHERE f.uuid = :uuid " +
             "GROUP BY v.gender")
     List<GenderCount> genderFormCount(@Param("uuid") @NotNull final UUID uuid);
 
+    // how many people of each gender voted (all forms - global metrics)
     @Query("SELECT NEW pl.wit.ilog.vote.model.GenderCount(v.gender, count(v.gender)) FROM VoteEntity v " +
             "GROUP BY v.gender")
     List<GenderCount> globalGenderCount();
@@ -92,6 +95,7 @@ public interface IVoteRepo extends JpaRepository<VoteEntity, Long> {
             "GROUP BY v.age")
     List<AgeCount> ageFormCount(@Param("uuid") @NotNull final UUID uuid);
 
+    // what age range people filled in the polls (all forms - global metrics)
     @Query("SELECT NEW pl.wit.ilog.vote.model.AgeCount(v.age, count(v.age)) FROM VoteEntity v " +
             "GROUP BY v.age")
     List<AgeCount> globalAgeCount();
