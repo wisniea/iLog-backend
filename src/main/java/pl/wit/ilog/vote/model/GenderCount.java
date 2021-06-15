@@ -7,11 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class AnswerAgeSexCount {
+public class GenderCount {
 
-    private Long answerId;
     private GenderEnum sexEnum;
-    private AgeEnum ageEnum;
     private Long count;
-
 }
