@@ -116,4 +116,12 @@ public interface IVoteRepo extends JpaRepository<VoteEntity, Long> {
     List<TextAnswer> allTextAnswersForSpecificAnswer(@Param("uuid") @NotNull final UUID uuid,
                                                      @Param("answerId") Long answerId);
 
+
+    @Query("SELECT NEW pl.wit.ilog.vote.model.QuestionText(q.question) FROM AnswerEntity a " +
+            "LEFT JOIN QuestionEntity q ON a.question.id = q.id " +
+            "LEFT JOIN FormEntity f ON f.id = q.form.id " +
+            "WHERE f.uuid = :uuid AND a.id = :answerId")
+    QuestionText getQuestionTextByAnswerId(@Param("uuid") @NotNull final UUID uuid,
+                                     @Param("answerId") Long answerId);
+
 }

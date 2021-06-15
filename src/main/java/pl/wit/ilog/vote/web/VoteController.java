@@ -129,4 +129,12 @@ public class VoteController {
         return voteRepo.allTextAnswersForSpecificAnswer(uuid, answerId);
     }
 
+
+    // EXTRA
+    @GetMapping("{uuid}/getQuestionText/{answerId}")
+    QuestionText getQuestionTextByAnswerId(@PathVariable @NotNull final UUID uuid,
+                                           @PathVariable Long answerId){
+        return voteRepo.getQuestionTextByAnswerId(uuid, answerId);
+    }
+
 }

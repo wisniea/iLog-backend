@@ -41,6 +41,7 @@ public class FormController {
                 .map(mapper::map)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
     @Transactional
     @GetMapping()
     public List<FormResponse> getAllForms(@CurrentUser UserPrincipal currentUser) {
