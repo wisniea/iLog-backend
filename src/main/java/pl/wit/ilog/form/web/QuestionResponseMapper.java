@@ -17,6 +17,7 @@ class QuestionResponseMapper implements IMapper<QuestionEntity, QuestionResponse
     public QuestionResponse map(QuestionEntity q) {
         val question = new QuestionResponse();
         question.setId(q.getId());
+        question.setQuestion(q.getQuestion());
         question.setType(q.getType());
         question.setAnswers(q.getAnswers()
                 .stream()
