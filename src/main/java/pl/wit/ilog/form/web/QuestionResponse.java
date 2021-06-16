@@ -12,6 +12,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 final class QuestionResponse {
     private Long id;
+    private String question;
     private QuestionTypeEnum type;
     private List<AnswerResponse> answers;
 
